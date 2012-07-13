@@ -18,7 +18,6 @@
 #
 
 include_recipe "php"
-include_recipe "chef-php-extra::module_dev"
 
 php_pear "xhprof" do
     preferred_state "beta"
@@ -27,4 +26,5 @@ end
 
 template "#{node['php']['ext_conf_dir']}/xhprof.ini" do
   mode "0644"
+  action :create_if_missing
 end

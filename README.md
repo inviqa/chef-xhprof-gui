@@ -16,14 +16,10 @@ Chef 0.10.0 or higher required (for Chef environment use).
 The following Opscode cookbooks are dependencies:
 
 * php
-* git (XHGui only)
-* mysql (XHGui only)
-* database (XHGui only)
-* apache2 (XHGui only)
-
-In order to install XHProf you will also need to install `php_dev` using the `chef-php-extra` cookbook.
-
-* chef-php-extra
+* git
+* mysql
+* database
+* apache2
 
 ## Chef-Solo
 
@@ -51,7 +47,7 @@ Installs XHProf using PECL.
 
 ## xhgui
 
-Installs and configures XHGui from [GitHub](https://github.com/preinheimer/xhprof) and sets up a MySql database to store data from profile runs. An apache vhost is also created to allow you to view the test run data.
+Installs and configures XHGui from [GitHub](https://github.com/preinheimer/xhprof) and sets up a MySql database to store data from profile runs. An apache vhost is also created to allow you to view the test run data on the server. The XHGui interface is protected by IP address. You will need to add your IP address to `node["xhprof"]["control_ips"]` in order to access the data.
 
 # Usage
 
@@ -59,6 +55,8 @@ Add the following configuration line to your Apache vhost configuration or to .h
 
     php_value auto_prepend_file “/opt/xhprof/external/header.php”
     php_value auto_append_file “/opt/xhprof/external/footer.php”
+    
+This will allow you to run the profiler on a request by adding the following params to a request `?_profile=1`.
 
 # License and Author
 
