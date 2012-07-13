@@ -20,6 +20,8 @@
 include_recipe "git"
 include_recipe "mysql::server"
 include_recipe "database"
+include_recipe "apache2"
+include_recipe "apache2::mod_php5"
 
 directory "/opt/xhprof" do
   owner "root"
@@ -28,7 +30,7 @@ directory "/opt/xhprof" do
   action :create
 end
 
-git "/opt/xhprof" do
+git node['xhprof']['install_path'] do
   repository "git://github.com/preinheimer/xhprof.git"
   revision "master"
   action :sync
@@ -62,3 +64,35 @@ unless File.exists?(grants_path)
   end
 end
 
+unless File.exists?("#{node['xhprof']['install_path']}/create_pdo.sql")
+  template "#{node['xhprof']['install_path']}/create_pdo.sql" do
+    source "create_pdo.sql.erb"
+    owner "root"
+    group "root"
+    mode "0600"
+    variables(:database => node[:xhprof][:db])
+  end
+
+  execute "mysql-install-xhprof-database" do
+      command "/usr/bin/mysql -u root #{node['mysql']['server_root_password'].empty? ? '' : '-p' }#{node['mysql']['server_root_password']} #{node['xhprof']['db']['database']} < #{node['xhprof']['install_path']}/create_pdo.sql"
+      action :run
+  end
+end
+
+
+template "#{node['xhprof']['install_path']}/xhprof_lib/config.php" do
+  source "config.php.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables(:database => node[:xhprof][:db])
+end
+
+
+web_app node['xhprof']['hostname'] do
+  server_name node['xhprof']['hostname']
+  server_aliases [node['fqdn']]
+  docroot "#{node['xhprof']['install_path']}/xhprof_html"
+end
+
+log " You can now access XHGui at #{node['xhprof']['hostname']} #{node['fqdn']}"

@@ -18,6 +18,7 @@
 #
 
 include_recipe "php"
+include_recipe "chef-php-extra::module_dev"
 
 php_pear "xhprof" do
     preferred_state "beta"
