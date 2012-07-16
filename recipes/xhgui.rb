@@ -25,6 +25,12 @@ include_recipe "apache2"
 include_recipe "apache2::mod_php5"
 include_recipe "php::module_mysql"
 
+
+gem_package "mysql" do
+  action :install
+  ignore_failure true
+end
+
 directory "/opt/xhprof" do
   owner "root"
   group "root"
