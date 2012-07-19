@@ -38,32 +38,24 @@ git node['xhprof']['install_path'] do
   action :sync
 end
 
+mysql_connection_info = {
+  :host => "localhost",
+  :username => "root",
+  :password => node['mysql']['server_root_password']
+}
+
 mysql_database "xhprof" do
-  connection ({:host => "localhost", :username => "root", :password => node['mysql']['server_root_password']})
+  connection (mysql_connection_info)
   action :create
 end
 
-grants_path = value_for_platform(
-  ["centos", "redhat", "suse", "fedora" ] => {
-    "default" => "/etc/xhprof-grants.sql"
-  },
-  "default" => "/etc/mysql/xhprof-grants.sql"
-)
-
-unless File.exists?(grants_path)
-  template "/etc/mysql/xhprof-grants.sql" do
-    path grants_path
-    source "xhprof-grants.sql.erb"
-    owner "root"
-    group "root"
-    mode "0600"
-    variables(:database => node[:xhprof][:db])
-  end
-
-  execute "mysql-install-xhprof-privileges" do
-      command "/usr/bin/mysql -u root #{node['mysql']['server_root_password'].empty? ? '' : '-p' }#{node['mysql']['server_root_password']} < #{grants_path}"
-      action :run
-  end
+mysql_database_user node[:xhprof][:db][:username] do
+  connection mysql_connection_info
+  password node[:xhprof][:db][:password]
+  database_name node[:xhprof][:db][:database]
+  host 'localhost'
+  privileges [:select,:update,:insert]
+  action :grant
 end
 
 template "#{node['xhprof']['install_path']}/create_pdo.sql" do
