@@ -35,9 +35,13 @@ $exceptionPostURLs[] = "login";
 $_xhprof['display'] = false;
 $_xhprof['doprofile'] = false;
 
+<% if node[:xhprof][:control_ips] == false %>
+$controlIPs = false;
+<% else %>
 $controlIPs = array();
 <% node[:xhprof][:control_ips].each do |a| %>
 $controlIPs[] = "<%= "#{a}" %>";
+<% end %>
 <% end %>
 
 //$otherURLS = array();

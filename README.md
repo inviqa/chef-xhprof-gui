@@ -35,7 +35,7 @@ If your using this cookbook with chef-solo you will need to define a `[:mysql][:
 * `node["xhprof"]["servername"]` = "The name of the server that is generating the profiling data, defaults to `myserver`."
 * `node["xhprof"]["namespace"]` = "The namespace for the application being profiled, defaults to `myapp`."
 * `node["xhprof"]["serializer"]` = "Method used to serialize data. MySQL/MySQLi/PDO ONLY Switch to JSON for better performance and support for larger profiler data sets. WARNING: Will break with existing profile data, you will need to TRUNCATE the profile data table."
-* `node["xhprof"]["control_ips"]` = "IP address that are granted access to XHGui, defaults to `"localhost"` and IP V6 `"::1"`, you'll want to add your own IP"
+* `node["xhprof"]["control_ips"]` = "IP address that are granted access to XHGui, defaults to `"localhost"` and IP V6 `"::1"`, you'll want to add your own IP. If you wish to disable this restriction set the value as `false`."
 
 # Recipes
 

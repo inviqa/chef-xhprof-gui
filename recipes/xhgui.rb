@@ -33,7 +33,7 @@ directory "/opt/xhprof" do
 end
 
 git node['xhprof']['install_path'] do
-  repository "git://github.com/preinheimer/xhprof.git"
+  repository "git://github.com/inviqa/xhprof.git"
   revision "master"
   action :sync
 end
