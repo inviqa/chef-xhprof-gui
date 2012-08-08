@@ -2,6 +2,8 @@
 
 Installs and configures XHProf and a XHGui by Paul Reinheimer. This can be used to profile your PHP application during development and is lightweight enough to be used in production for live profiling of request samples.
 
+[![Build Status](https://secure.travis-ci.org/inviqa/chef-xhprof-gui.png?branch=master)](http://travis-ci.org/inviqa/chef-xhprof-gui)
+
 # Requirements
 
 Chef 0.10.0 or higher required (for Chef environment use).
