@@ -49,10 +49,10 @@ mysql_database "xhprof" do
   action :create
 end
 
-mysql_database_user node[:xhprof][:db][:username] do
+mysql_database_user node['xhprof']['db']['username'] do
   connection mysql_connection_info
-  password node[:xhprof][:db][:password]
-  database_name node[:xhprof][:db][:database]
+  password node['xhprof']['db']['password']
+  database_name node['xhprof']['db']['database']
   host 'localhost'
   privileges [:select,:update,:insert]
   action :grant
@@ -63,7 +63,7 @@ template "#{node['xhprof']['install_path']}/create_pdo.sql" do
   owner "root"
   group "root"
   mode "0600"
-  variables(:database => node[:xhprof][:db])
+  variables(:database => node['xhprof']['db'])
 end
 
 execute "mysql-install-xhprof-database" do
@@ -77,7 +77,7 @@ template "#{node['xhprof']['install_path']}/xhprof_lib/config.php" do
   owner "root"
   group "root"
   mode "0644"
-  variables(:database => node[:xhprof][:db])
+  variables(:database => node['xhprof']['db'])
 end
 
 web_app node['xhprof']['hostname'] do
