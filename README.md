@@ -18,6 +18,7 @@ Chef 0.10.0 or higher required (for Chef environment use).
 The following Opscode cookbooks are dependencies:
 
 * php
+* chef-php-extra
 * git
 * mysql
 * database
