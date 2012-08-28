@@ -63,7 +63,6 @@ template "#{node['xhprof']['install_path']}/create_pdo.sql" do
   owner "root"
   group "root"
   mode "0600"
-  variables(:database => node['xhprof']['db'])
 end
 
 execute "mysql-install-xhprof-database" do
@@ -77,11 +76,15 @@ template "#{node['xhprof']['install_path']}/xhprof_lib/config.php" do
   owner "root"
   group "root"
   mode "0644"
-  variables(:database => node['xhprof']['db'])
+  variables(
+    :params => node['xhprof'],
+    :database => node['xhprof']['db']
+  )
 end
 
 web_app node['xhprof']['hostname'] do
   server_name node['xhprof']['hostname']
+  apache node['apache']
   server_aliases [node['fqdn']]
   docroot "#{node['xhprof']['install_path']}/xhprof_html"
 end

@@ -8,16 +8,16 @@ $_xhprof['dbuser'] = '<%= @database[:username] %>';
 $_xhprof['dbpass'] = '<%= @database[:password] %>';
 $_xhprof['dbname'] = '<%= @database[:database] %>';
 $_xhprof['dbadapter'] = 'Pdo';
-$_xhprof['servername'] = '<%= node[:xhprof][:servername] %>';
-$_xhprof['namespace'] = '<%= node[:xhprof][:namespace] %>';
-$_xhprof['url'] = 'http://<%= node[:xhprof][:hostname] %>';
+$_xhprof['servername'] = '<%= @params[:servername] %>';
+$_xhprof['namespace'] = '<%= @params[:namespace] %>';
+$_xhprof['url'] = 'http://<%= @params[:hostname] %>';
 
 /*
  * MySQL/MySQLi/PDO ONLY
  * Switch to JSON for better performance and support for larger profiler data sets.
  * WARNING: Will break with existing profile data, you will need to TRUNCATE the profile data table.
  */
-$_xhprof['serializer'] = '<%= node[:xhprof][:serializer] %>';
+$_xhprof['serializer'] = '<%= @params[:serializer] %>';
 
 //These are good for linux and its derivatives.
 $_xhprof['dot_binary']  = '/usr/bin/dot';
@@ -35,12 +35,12 @@ $exceptionPostURLs[] = "login";
 $_xhprof['display'] = false;
 $_xhprof['doprofile'] = false;
 
-<% if node[:xhprof][:control_ips] == false %>
+<% if @params[:control_ips] == false %>
 $controlIPs = false;
 <% else %>
 $controlIPs = array();
-<% node[:xhprof][:control_ips].each do |a| %>
-$controlIPs[] = "<%= "#{a}" %>";
+<% @params[:control_ips].each do |a| %>
+$controlIPs[] = "<%= a %>";
 <% end %>
 <% end %>
 
