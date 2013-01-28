@@ -5,12 +5,12 @@ description      "Installs/Configures XHProf XHGui"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.0.1"
 
-depends "php"
+depends "php", "= 1.0.2"
 depends "chef-php-extra"
-depends "git"
-depends "mysql"
-depends "database"
-depends "apache2"
+depends "git", "= 1.0.0"
+depends "mysql", "= 1.2.6"
+depends "database", "= 1.2.0"
+depends "apache2", "= 1.1.12"
 depends "chef-xhprof-gui"
 
 %w{ ubuntu, debian, centos, fedora }.each do |os|
