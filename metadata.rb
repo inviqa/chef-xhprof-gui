@@ -1,3 +1,4 @@
+name             "chef-xhprof-gui"
 maintainer       "Alistair Stead"
 maintainer_email "alistair.stead@inviqa.com"
 license          "Apache 2.0"
