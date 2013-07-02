@@ -14,7 +14,7 @@ depends "database", "> 1.3.0"
 depends "apache2"
 depends "chef-xhprof-gui"
 
-%w{ ubuntu, debian, centos, fedora }.each do |os|
+%w{ ubuntu debian centos fedora }.each do |os|
   supports os
 end
 
