@@ -18,8 +18,8 @@
 #
 
 include_recipe "git"
-include_recipe "database::mysql"
 include_recipe "mysql"
+include_recipe "mysql::client"
 include_recipe "mysql::server"
 include_recipe "apache2"
 include_recipe "apache2::mod_php5"
