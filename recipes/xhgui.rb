@@ -89,4 +89,7 @@ web_app node['xhprof']['hostname'] do
   docroot "#{node['xhprof']['install_path']}/xhprof_html"
 end
 
+# Install Graphviz for use with xhprof-gui graphs.
+package "graphviz"
+
 log " You can now access XHGui at #{node['xhprof']['hostname']} #{node['fqdn']}"
