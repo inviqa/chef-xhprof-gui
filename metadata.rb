@@ -7,7 +7,6 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.3.1"
 
 depends "php"
-depends "chef-php-extra"
 depends "git"
 depends "mysql"
 depends "database", "> 1.3.0"
