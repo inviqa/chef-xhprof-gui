@@ -8,6 +8,7 @@ default['xhprof']['servername'] = 'myserver';
 default['xhprof']['namespace'] = 'myapp';
 default['xhprof']['serializer'] = "php"
 default['xhprof']['control_ips'] = ["127.0.0.1", "::1"]
+default['xhprof']['alias_fqdn'] = true
 
 ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 

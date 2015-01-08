@@ -8,7 +8,7 @@ version          "0.4.0"
 
 depends "php"
 depends "git"
-depends "mysql"
+depends "mysql", "< 5.0.0"
 depends "database", "> 1.3.0"
 depends "apache2"
 
