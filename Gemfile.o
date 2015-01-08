@@ -1,0 +1,7 @@
+source :rubygems
+
+gem 'chef'
+gem 'foodcritic'
+gem 'rake'
+gem 'test-kitchen'
+gem 'kitchen-vagrant'
