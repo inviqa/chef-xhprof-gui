@@ -17,13 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "git"
-include_recipe "mysql::client"
-include_recipe "mysql::server"
-include_recipe "apache2"
-include_recipe "apache2::mod_php5"
-include_recipe "php::module_mysql"
-
 directory "/opt/xhprof" do
   owner "root"
   group "root"

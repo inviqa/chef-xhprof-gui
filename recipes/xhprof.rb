@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "php"
-
 php_pear "xhprof" do
     preferred_state "beta"
     action :install
