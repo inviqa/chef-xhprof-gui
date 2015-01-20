@@ -4,10 +4,9 @@ maintainer_email "alistair.stead@inviqa.com"
 license          "Apache 2.0"
 description      "Installs/Configures XHProf XHGui"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.3.1"
+version          "0.4.0"
 
 depends "php"
-depends "chef-php-extra"
 depends "git"
 depends "mysql"
 depends "database", "> 1.3.0"

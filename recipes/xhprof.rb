@@ -17,13 +17,6 @@
 # limitations under the License.
 #
 
-if platform?("redhat", "centos", "fedora", "amazon", "scientific")
-  include_recipe "chef-php-extra::package"
-end
-if platform?("ubuntu", "debian")
-  include_recipe "php"
-end
-
 php_pear "xhprof" do
     preferred_state "beta"
     action :install
