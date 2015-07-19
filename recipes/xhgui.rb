@@ -74,10 +74,16 @@ template "#{node['xhprof']['install_path']}/xhprof_lib/config.php" do
   )
 end
 
+
+server_aliases = []
+if node['xhprof']['alias_fqdn'] then
+  server_aliases << node['fqdn']
+end
+
 web_app node['xhprof']['hostname'] do
   server_name node['xhprof']['hostname']
   apache node['apache']
-  server_aliases [node['fqdn']]
+  server_aliases server_aliases
   docroot "#{node['xhprof']['install_path']}/xhprof_html"
 end
 

@@ -39,6 +39,7 @@ If your using this cookbook with chef-solo you will need to define a `[:mysql][:
 * `node["xhprof"]["namespace"]` = "The namespace for the application being profiled, defaults to `myapp`."
 * `node["xhprof"]["serializer"]` = "Method used to serialize data. MySQL/MySQLi/PDO ONLY Switch to JSON for better performance and support for larger profiler data sets. WARNING: Will break with existing profile data, you will need to TRUNCATE the profile data table."
 * `node["xhprof"]["control_ips"]` = "IP address that are granted access to XHGui, defaults to `"localhost"` and IP V6 `"::1"`, you'll want to add your own IP. If you wish to disable this restriction set the value as `false`."
+* `node["xhprof"]["alias_fqdn"]` = "If true, the node's fully qualified domain name will be added as an alias to the virtual host in apache. Default is `true`. Set to `false` if your FQDN is being used for another virtual host."
 
 # Recipes
 
