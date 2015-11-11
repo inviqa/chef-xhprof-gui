@@ -36,7 +36,7 @@ mysql_connection_info = {
   :password => node['mysql']['server_root_password']
 }
 
-mysql_database "xhprof" do
+mysql_database node['xhprof']['db']['database'] do
   connection (mysql_connection_info)
   action :create
 end
