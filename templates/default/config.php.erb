@@ -3,7 +3,7 @@ $_xhprof = array();
 
 // Change these:
 $_xhprof['dbtype'] = 'mysql'; // Only relevant for PDO
-$_xhprof['dbhost'] = 'localhost';
+$_xhprof['dbhost'] = '<%= @database[:host] %>';
 $_xhprof['dbuser'] = '<%= @database[:username] %>';
 $_xhprof['dbpass'] = '<%= @database[:password] %>';
 $_xhprof['dbname'] = '<%= @database[:database] %>';
@@ -67,40 +67,40 @@ unset($domain_weight);
 * worthwhile to consider them as identical. The script will store both the original URL and the
 * Simplified URL for display and comparison purposes. A good simplified URL would be:
 * http://example.org/stories.php?id=
-* 
+*
 * @param string $url The URL to be simplified
-* @return string The simplified URL 
+* @return string The simplified URL
 */
 function _urlSimilartor($url)
 {
-  //This is an example 
+  //This is an example
   $url = preg_replace("!\d{4}!", "", $url);
-      
+
   // For domain-specific configuration, you can use Apache setEnv xhprof_urlSimilartor_include [some_php_file]
   if($similartorinclude = getenv('xhprof_urlSimilartor_include')) {
   	require_once($similartorinclude);
   }
-      
+
   $url = preg_replace("![?&]_profile=\d!", "", $url);
   return $url;
 }
-  
+
 function _aggregateCalls($calls, $rules = null)
 {
-$rules = array(
+  $rules = array(
     'Loading' => 'load::',
     'mysql' => 'mysql_'
-    );
+  );
 
-// For domain-specific configuration, you can use Apache setEnv xhprof_aggregateCalls_include [some_php_file]
-if(isset($run_details['aggregateCalls_include']) && strlen($run_details['aggregateCalls_include']) > 1)
-	{
+  // For domain-specific configuration, you can use Apache setEnv xhprof_aggregateCalls_include [some_php_file]
+  if(isset($run_details['aggregateCalls_include']) && strlen($run_details['aggregateCalls_include']) > 1)
+  {
 	require_once($run_details['aggregateCalls_include']);
-	}        
-    
-$addIns = array();
-foreach($calls as $index => $call)
-{
+  }
+
+  $addIns = array();
+  foreach($calls as $index => $call)
+  {
     foreach($rules as $rule => $search)
     {
         if (strpos($call['fn'], $search) !== false)
@@ -124,6 +124,6 @@ foreach($calls as $index => $call)
             //echo "nomatch for $search in {$call['fn']}<br />\n";
         }
     }
-}
-return array_merge($addIns, $calls);
+  }
+  return array_merge($addIns, $calls);
 }

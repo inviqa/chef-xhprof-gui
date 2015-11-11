@@ -31,12 +31,13 @@ git node['xhprof']['install_path'] do
 end
 
 mysql_connection_info = {
-  :host => "localhost",
+  :host => node['xhprof']['db']['host'],
+  :port => node['xhprof']['db']['port'],
   :username => "root",
   :password => node['mysql']['server_root_password']
 }
 
-mysql_database "xhprof" do
+mysql_database node['xhprof']['db']['database'] do
   connection (mysql_connection_info)
   action :create
 end
@@ -45,7 +46,7 @@ mysql_database_user node['xhprof']['db']['username'] do
   connection mysql_connection_info
   password node['xhprof']['db']['password']
   database_name node['xhprof']['db']['database']
-  host 'localhost'
+  host node['xhprof']['db']['host']
   privileges [:select,:update,:insert]
   action :grant
 end
@@ -58,7 +59,7 @@ template "#{node['xhprof']['install_path']}/create_pdo.sql" do
 end
 
 execute "mysql-install-xhprof-database" do
-    command "/usr/bin/mysql -u root #{node['mysql']['server_root_password'].empty? ? '' : '-p' }#{node['mysql']['server_root_password']} #{node['xhprof']['db']['database']} < #{node['xhprof']['install_path']}/create_pdo.sql"
+    command "/usr/bin/mysql #{node['xhprof']['db']['host'].empty? || node['xhprof']['db']['host'] == "localhost" ? '' : '-h ' + node['xhprof']['db']['host']} -u root #{node['mysql']['server_root_password'].empty? ? '' : '-p' }#{node['mysql']['server_root_password']} #{node['xhprof']['db']['database']} < #{node['xhprof']['install_path']}/create_pdo.sql"
     action :run
 end
 

@@ -1,5 +1,7 @@
 # General settings
 
+default['xhprof']['db']['host'] = "localhost"
+default['xhprof']['db']['port'] = 3306
 default['xhprof']['db']['database'] = "xhprof"
 default['xhprof']['db']['username'] = "xhprof"
 default['xhprof']['hostname'] = "xhprof"
